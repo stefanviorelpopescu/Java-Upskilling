@@ -4,6 +4,7 @@ import design_patterns.facade.facade.UserFacade;
 import design_patterns.facade.service.UserAccountService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 
 @Controller("/user-account")
 public class UserAccountController
@@ -18,7 +19,14 @@ public class UserAccountController
     }
 
     @PutMapping("/addAccount")
-    public boolean addUserAccount() {
+    public boolean addUserAccount(@RequestHeader(name = "X-SID") String sid,
+                                  @RequestHeader(name = "X-USER") String username) {
+        validateSid(sid, username);
         return userFacade.addUserAccount("", "");
+    }
+
+    private void validateSid(String sid, String username)
+    {
+
     }
 }
