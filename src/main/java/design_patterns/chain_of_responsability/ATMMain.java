@@ -1,9 +1,9 @@
-package design_patterns.facade.chain_of_responsability;
+package design_patterns.chain_of_responsability;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import static design_patterns.facade.chain_of_responsability.Denomination.*;
+import static design_patterns.chain_of_responsability.Denomination.*;
 
 public class ATMMain
 {
