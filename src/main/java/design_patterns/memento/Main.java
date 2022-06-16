@@ -103,13 +103,13 @@ public class Main
     {
         Scanner in = new Scanner(System.in);
         board = new String[9];
-        saveBoardState(board);
         turn = "X";
         String winner = null;
 
         for (int a = 0; a < 9; a++) {
             board[a] = String.valueOf(a + 1);
         }
+        saveBoardState(board);
 
         System.out.println("Welcome to 3x3 Tic Tac Toe.");
         printBoard();
@@ -140,6 +140,7 @@ public class Main
 
             if (numInput == 0) {
                 undoLastAction();
+                changeTurn();
                 printBoard();
                 winner = checkWinner();
             }
@@ -151,12 +152,7 @@ public class Main
                     board[numInput - 1] = turn;
                     saveBoardState(board);
 
-                    if (turn.equals("X")) {
-                        turn = "O";
-                    }
-                    else {
-                        turn = "X";
-                    }
+                    changeTurn();
 
                     printBoard();
                     winner = checkWinner();
@@ -183,6 +179,16 @@ public class Main
         }
     }
 
+    private static void changeTurn()
+    {
+        if (turn.equals("X")) {
+            turn = "O";
+        }
+        else {
+            turn = "X";
+        }
+    }
+
     private static void saveBoardState(String[] board)
     {
         caretaker.saveState(board);
@@ -191,8 +197,6 @@ public class Main
     private static void undoLastAction()
     {
         Optional<String[]> lastState = caretaker.getLastState();
-        if (lastState.isPresent()) {
-            board = lastState.get();
-        }
+        lastState.ifPresent(strings -> board = strings);
     }
 }
