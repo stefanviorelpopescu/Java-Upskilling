@@ -13,5 +13,9 @@ public class StrategyExample
     {
         System.out.println(sortList(new QuickSortStrategy(), Arrays.asList(2, 1, 3)));
         System.out.println(sortList(new BubbleSortStrategy(), Arrays.asList(2, 1, 3)));
+        System.out.println(sortList(list -> {
+            list.sort(Integer::compareTo);
+            return list;
+        }, Arrays.asList(2, 1, 3)));
     }
 }
