@@ -1,6 +1,5 @@
 package design_patterns.facade.service;
 
-import design_patterns.facade.model.Account;
 import design_patterns.facade.model.User;
 import org.springframework.stereotype.Service;
 
@@ -8,8 +7,8 @@ import org.springframework.stereotype.Service;
 public class UserLoginService
 {
 
-    public boolean loginUser(String username) {
-        return true;
+    public User loginUser(String username) {
+        return new User();
     }
 
     public boolean logoutUser(String username)

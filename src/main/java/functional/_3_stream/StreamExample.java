@@ -6,6 +6,9 @@ import java.util.function.Consumer;
 import java.util.logging.Logger;
 import java.util.stream.*;
 
+import static java.util.stream.Collectors.groupingBy;
+import static java.util.stream.Collectors.toMap;
+
 public class StreamExample {
 
     private static Logger logger = Logger.getLogger(StreamExample.class.getName());
@@ -34,6 +37,53 @@ public class StreamExample {
 
         }
 
+        List<User> users = new ArrayList<>();
+        users.add(user);
+        users.add(user);
+
+        Optional<Integer> max = users.stream()
+                .filter(user1 -> user1.getAge() < 30)
+                .sorted(Comparator.reverseOrder())
+//                .sorted(Comparator.comparingInt(User::getScore).reversed())
+                .map(User::getScore)
+                .max(Integer::compareTo);
+
+        flatMapsUserChildren(users);
+
+        users.stream()
+                .map(User::getAge)
+                .reduce(Integer::sum)
+                .get();
+
+        int sum = users.stream().mapToInt(User::getAge).sum();
+
+
+        Map<Integer, List<User>> collect = users.stream()
+                .collect(groupingBy(User::getAge));
+
+        Map<Integer, List<String>> userNamesByAge = users.stream()
+                .collect(toMap(User::getAge,
+                        user1 -> Collections.singletonList(user1.getName()),
+                        (nameList1, nameList2) -> {
+                            nameList1.addAll(nameList2);
+                            return nameList1;
+                        }));
+
+        System.out.println(max);
+
+    }
+
+    private static void flatMapsUserChildren(List<User> users)
+    {
+        //generate a stream consisting of the children of all users
+        users.stream()
+                .flatMap(user -> user.getChildren().stream())
+                .collect(Collectors.toList());
+
+        users.stream()
+                .map(user -> user.getChildren().stream())
+                .reduce(Stream::concat)
+                .ifPresent(userStream -> userStream.collect(Collectors.toList()));
     }
 
     private void createStreamFromCollection() {

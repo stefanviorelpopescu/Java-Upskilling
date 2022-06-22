@@ -1,6 +1,5 @@
 package design_patterns.facade.service;
 
-import design_patterns.facade.model.Account;
 import design_patterns.facade.model.User;
 import org.springframework.stereotype.Service;
 
@@ -12,8 +11,8 @@ public class UserAccountService
         return true;
     }
 
-    public boolean removeAccount(String username, long accountId) {
-        new User().getAccounts().remove(0);
+    public boolean removeAccount(User user, long accountId) {
+        user.getAccounts().removeIf(account -> account.getId() == accountId);
         return true;
     }
 }

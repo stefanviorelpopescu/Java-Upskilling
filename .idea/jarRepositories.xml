@@ -21,5 +21,10 @@
       <option name="name" value="Central Repository" />
       <option name="url" value="https://eac-mvn-001.fos.ea.com/nexus/content/groups/public" />
     </remote-repository>
+    <remote-repository>
+      <option name="id" value="central" />
+      <option name="name" value="Maven Repository Switchboard" />
+      <option name="url" value="https://eac-mvn-001.fos.ea.com/nexus/content/groups/public" />
+    </remote-repository>
   </component>
 </project>

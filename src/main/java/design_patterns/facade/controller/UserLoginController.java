@@ -1,6 +1,7 @@
 package design_patterns.facade.controller;
 
 import design_patterns.facade.facade.UserFacade;
+import design_patterns.facade.model.User;
 import design_patterns.facade.service.UserLoginService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +20,7 @@ public class UserLoginController
     }
 
     @PostMapping("/login")
-    public boolean loginUser(String username) {
+    public User loginUser(String username) {
         return userLoginService.loginUser(username);
     }
 
@@ -29,8 +30,8 @@ public class UserLoginController
     }
 
     @PutMapping("/deactivate")
-    public boolean deactivateUser(String username) {
-        return userFacade.deactivatetUser(username);
+    public User deactivateUser(String username) {
+        return userFacade.deactivateUser(username);
     }
 
     @PutMapping("reactivate")

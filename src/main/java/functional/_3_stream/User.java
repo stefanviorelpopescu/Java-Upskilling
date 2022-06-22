@@ -8,6 +8,23 @@ public class User implements Comparable<User>{
 
     private List<User> children = new ArrayList<>();
     private int age;
+    private int score;
+    private String name;
+
+    public String getName()
+    {
+        return name;
+    }
+
+    public List<User> getChildren()
+    {
+        return children;
+    }
+
+    public int getScore()
+    {
+        return score;
+    }
 
     public int getAge()
     {

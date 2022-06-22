@@ -2,6 +2,7 @@ package design_patterns.facade.facade;
 
 import design_patterns.facade.model.Account;
 import design_patterns.facade.model.User;
+import design_patterns.facade.model.UserStatus;
 import design_patterns.facade.service.UserAccountService;
 import design_patterns.facade.service.UserLoginService;
 import org.springframework.stereotype.Component;
@@ -18,13 +19,15 @@ public class UserFacade
         this.userAccountService = userAccountService;
     }
 
-    public boolean deactivatetUser(String username)
+    public User deactivateUser(String username)
     {
-        for (Account account : new User().getAccounts())
+        User user = userLoginService.loginUser(username);
+        for (Account account : user.getAccounts())
         {
-            userAccountService.removeAccount("", 0);
+            userAccountService.removeAccount(user, account.getId());
         }
-        return false;
+        user.setStatus(UserStatus.DEACTIVATED);
+        return user;
     }
 
     public boolean addUserAccount(String username, String currency) {
