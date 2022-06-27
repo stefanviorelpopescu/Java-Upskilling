@@ -47,10 +47,10 @@ class UserFacadeTest
         when(userAccountService.removeAccount(eq(userWithThreeAccounts), anyLong())).thenReturn(true);
 
         //when
-        userFacade.deactivateUser(USERNAME);
+        User actualUser = userFacade.deactivateUser(USERNAME);
 
         //then
-        assertEquals(UserStatus.DEACTIVATED, userWithThreeAccounts.getStatus(), "User status should be DEACTIVATED");
+        assertEquals(UserStatus.DEACTIVATED, actualUser.getStatus(), "User status should be DEACTIVATED");
         userWithThreeAccounts.getAccounts().forEach(account ->
                 verify(userAccountService, times(1)).removeAccount(eq(userWithThreeAccounts), eq(account.getId())));
     }
